@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    font-size: 62.5%;
+}
+body{
+    font-size: 1.6rem;
+}
+body::before {
+  content: "";
+  position: fixed;      
+  inset: 0;
+  background: url("/frontend/assets/imageBackground.jpg") center/cover no-repeat;
+  filter: blur(8px);   
+  z-index: -1;          
+}
+.container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.boxMain{
+    margin: 0 auto;
+    width: 75%;
+    height: 75%;
+    border-radius: 15px;
+    background-color: #F69AE8;
+    box-shadow: 0 5px 25px #fefefec9;
+    display: flex;
+    align-items: center;
+}
+
+/* REQUEST */
+.boxLeft_request{
+    justify-items: center;
+    margin: 0 auto;
+    width: 45%;
+    height: 80%;
+    background-color: #fff;
+    border-radius: 15px;
+
+}
+.titleReq{
+    margin-top: 1rem;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #E76BD5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.boxInforOfReq{
+    width: 90%;
+    height: 80%;
+    border-radius: 15px;
+    background-color: #8F8F8F;
+}
+
+/* RESPONSE */
+.boxRight_response{
+    justify-items: center;
+    margin: 0 auto;
+    width: 45%;
+    height: 80%;
+    background: #fff;
+    border-radius: 15px;
+}
+.titleRes{
+    margin-top: 1rem;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #E76BD5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.boxInforOfRes{
+    width: 90%;
+    height: 80%;
+    border-radius: 15px;
+    background-color: #8F8F8F;
+}
+
+
+
+
+
+
+
+

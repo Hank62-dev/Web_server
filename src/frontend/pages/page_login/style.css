@@ -7,7 +7,7 @@
     --light-background:#ffffff;
     justify-content: center;
     font-family:Arial, Helvetica, sans-serif;
-
+    cursor: pointer;
 }
 /*var blue = background color 1
 Because at first we set blue as background color =)) */
