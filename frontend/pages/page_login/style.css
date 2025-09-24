@@ -1,0 +1,269 @@
+*{
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+    --inblue-text: white;
+    --blue-background:#e76bd5;
+    --light-background:#ffffff;
+    justify-content: center;
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+/*var blue = background color 1
+Because at first we set blue as background color =)) */
+
+html{
+    font-size:62.5%;
+    font-optical-sizing: auto;
+    font-weight:500;
+    font-style:normal;
+}
+body{
+    font-size:1.6rem;
+    margin-bottom:100vh;
+}
+body,html{
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+body::before {
+  content: "";
+  position: fixed;      
+  inset: 0;
+  background: url("/frontend/assets/imageBackground.jpg") center/cover no-repeat;
+  filter: blur(8px);   
+  z-index: -1;          
+}
+/*inset 0 to maximized this bg picture size, to fit in browser screen size*/
+input{
+    display:block;
+    border: 2px solid var(--blue-background);
+    font-style: italic;
+    border-radius: 10px;
+    width:100%;
+    height:50px;
+    padding-left: 5%;
+    font-size: 20px;
+    border-style: solid;
+    outline:none;  
+}
+
+/*this input definition applied for two button username and password*/
+
+a{
+    text-decoration:none ;
+    color:white;
+}
+input::placeholder{
+    color:var(--blue-background);
+}
+
+
+/*container contains 2 column, and all factors within them. 
+Container doesnot contain background*/
+.container{
+    
+    display:flex;
+    height:90vh;
+    width:80%;    
+    margin: 0 auto;
+    margin-top:5%;
+    margin-left:10%;
+    background-color:white;
+    border-radius: 25px;
+    z-index:1;
+    box-shadow: 0 30px 30px rgba(0,0,0,0.3);
+}
+
+.col{
+    display:flex;
+    flex-direction: column;
+}
+
+
+.left{
+    flex:45;
+    border-width: 1px;
+    background-color: var(--blue-background);
+    color:var(--inblue-text);
+    border-radius:25px ;
+}
+
+.left div{
+    display:flex;
+    flex-direction: row;
+}
+.right {
+    flex:55;
+    background-color:var(--light-background);  
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+}
+
+
+/*box hello*/
+.left .intro{
+    padding-left: 5%;
+    flex:45;
+    padding-right:3%;
+    align-items: end;
+    font-size:25px;
+}
+/*box dont have acc?*/
+.left .prompt_to_register{
+    flex:15;
+    align-items: center;
+    font-size:16px;
+}
+/*box register*/
+.left .registerBox{
+    flex:40;
+    align-items: start;
+    position: relative;
+}
+
+
+/*button applied for register and login button*/
+button{
+    width:50%;
+    height:40px;
+    border-radius: 10px;
+    border: 2px solid white;
+    background-color:var(--blue-background);
+    position: absolute;
+    align-items: center;
+    color:var(--light-background);
+    font-size:15px;
+    
+}
+button:hover{
+    width:55%;
+    height:42px;
+    border-radius:12px;
+    font-size:16px;
+    color:var(--blue-background);
+    background-color:var(--light-background);
+    font-weight: bold;
+    box-shadow: 0px 10px 15px rgba(0,0,0,0.5);
+    transition: all 0.2s ease-out;
+    border: 1px solid var(--blue-background);
+}
+
+
+.right .login_frame{
+    position:absolute;
+    width:80%;
+    height:90%;
+    border:12px;
+    border-bottom: none;
+    background-color: var(--light-background);
+    align-items: center;
+    justify-content: center;
+    display:flex;
+    flex-direction: column;
+    box-shadow:
+        inset 2px 0px 2px rgba(0, 0, 0, 0.09 ),
+        inset 0px 5px 15px rgba(0,0,0,0.3),
+        inset -2px 0px 2px  rgba(0,0,0,0.09),
+        inset 0px 5px 15px rgba(248, 246, 246, 0.9);
+    
+
+}
+
+.login_frame div{
+    display: flex;
+}
+
+
+.login_frame .boxTitle{
+    color:var(--blue-background);
+    flex:40;
+    align-items: center;
+    font-size:20px;
+    
+} 
+
+.login_frame .boxUsername{
+    
+    flex:15;
+    align-items: center;
+    width:80%
+}
+
+input:focus{
+    border-width: 4px;
+    border-style: solid;
+    border-color:var(--blue-background);
+    box-shadow: inset 5px 5px 5px rgba(2, 8, 17, 0.12),
+                    5px 5px 10px #888888;
+    transition: all 0.3s ease-in;
+    
+
+}
+
+.login_frame .boxPassword{
+    flex:15;
+    align-items: center;
+    width:80%;
+    
+    
+    
+}
+
+.login_frame .boxForgotpw{
+    flex:10;
+    align-items: center;
+    font-size:smaller;
+    color:#888888;
+}   
+
+.boxForgotpw:hover{
+    color:var(--blue-background);
+}
+
+.login_frame .boxConfirm{
+    
+    flex:10;
+    align-items: start;
+    
+}
+
+.login_frame .socialLoginBox{
+    flex:10;
+    align-items: center;
+    font-size:smaller;
+    color:#888888;
+}
+
+.login_frame .socialIcon{
+    
+    flex:10;
+    align-items: center;
+    display:flex;
+    justify-content: space-around;
+    flex-direction:row;
+    width:80%;
+    padding-top:5%;
+    padding-bottom:10%;
+   
+}
+
+.fa-brands{
+    color:var(--blue-background);
+    font-size:30px;
+    flex:0;
+    width:80%;
+    flex-shrink:0;
+    transition: transform 0.25 ease, color 0.2s ease;
+
+}
+
+.fa-brands:hover{
+    transform:scale(1.3);
+    /*only change display fontsize, do not impact on other icons*/
+    
+}
