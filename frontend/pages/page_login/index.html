@@ -7,6 +7,7 @@
     <title>Login</title>
     </head>
 
+   
     <body>
         
        
@@ -23,7 +24,7 @@
                 <div class="left registerBox">
                     <div class="registerBox register_button">
                         
-                            <button>Register</button>
+                            <button id="register">Register</button>
                         
                     </div>
                 </div>
@@ -39,13 +40,13 @@
                         <input placeholder="Username" type="text">
                     </div>
                     <div class="boxPassword">
-                        <input placeholder="Password" type="text">
+                        <input placeholder="Password" type="password">
                     </div>
                     <div class="boxForgotpw">
                         <p>Forgot Password?</p>
                     </div>
                     <div class="boxConfirm">
-                        <button>Login</button>
+                        <button id="btn_login">Login</button>
                     </div>
                     
                     <div class="socialLoginBox">or login with social platforms</div>
@@ -59,7 +60,21 @@
                 
                 </div>
             </div>
+
+            <script>
+                document.getElementById("register").addEventListener("click",
+                function() {
+                    document.querySelector(".left").classList.add("element_slide_out");
+                    document.querySelector(".right").classList.add("fade_out");
+
+                    setTimeout(function() {
+                        document.querySelector(".container").classList.add("left_expand");
+                    }, 700);
+                });
+            </script>
+            <!--timeOut to avoid left_expand disabling fade_out and element_slide_out-->
         </div>
         
         
+    
     </body>

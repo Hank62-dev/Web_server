@@ -75,12 +75,28 @@ Container doesnot contain background*/
     border-radius: 25px;
     z-index:1;
     box-shadow: 0 30px 30px rgba(0,0,0,0.3);
+
 }
+
+.container.left_expand .left{
+    flex:100;
+    transition:flex 1.5s ease-in-out;
+}
+
+.container.left_expand .right{
+    flex:0;
+    transition:flex 1.5s ease-in-out;
+    opacity:0;
+    transition: opacity 0.95 ease-in-out;
+   
+}
+
 
 .col{
     display:flex;
     flex-direction: column;
 }
+
 
 
 .left{
@@ -91,9 +107,17 @@ Container doesnot contain background*/
     border-radius:25px ;
 }
 
+
 .left div{
     display:flex;
     flex-direction: row;
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    background-color:rgba(0, 0, 0, 0);
+}
+
+.left.element_slide_out div{
+    transform:translateX(-100%);
+    opacity:0;
 }
 .right {
     flex:55;
@@ -102,6 +126,11 @@ Container doesnot contain background*/
     justify-content: center;
     align-items: center;
     border-radius: 25px;
+    opacity:1;
+    transition:opacity 0.8s ease-in-out;
+}
+.right.fade_out div{
+    opacity:0;
 }
 
 
@@ -176,9 +205,13 @@ button:hover{
 
 .login_frame div{
     display: flex;
+    opacity:1;
+    transition:opacity 3s ease-in-out;
 }
 
-
+.login_frame.fade_out div{
+    opacity:0;
+}
 .login_frame .boxTitle{
     color:var(--blue-background);
     flex:30;
