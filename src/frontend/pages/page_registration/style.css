@@ -1,0 +1,261 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+
+    --inblue-text: white;
+    --blue-background: #e76bd5;
+    --light-background: #ffffff;
+}
+
+html {
+    font-size: 62.5%;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+body {
+    font-size: 1.6rem;
+    margin-bottom: 100vh;
+}
+
+body,
+html {
+    height: 85vh;
+    justify-content: center;
+    align-items: center;
+}
+/* Background blur */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("../../../assets/imageBackground.jpg") center/cover no-repeat;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.container {
+    display: flex;
+    height: 80vh;
+    width: 75%;
+    margin: 5% auto 0;
+    background-color: white;
+    border-radius: 25px;
+    z-index: 1;
+    box-shadow: 0 30px 30px rgba(0, 0, 0, 0.3);
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+}
+.container.right_expand .left {
+    flex: 100;
+    transition: flex 1.5s ease-in-out;
+}
+
+.container.right_expand .right {
+    flex: 0;
+    transition: flex 1.5s ease-in-out;
+    opacity: 0;
+    transition: opacity 0.95s ease-in-out;
+}
+/*right */
+.right {
+    flex: 45;
+    border-width: 1px;
+    background-color: var(--blue-background);
+    color: var(--inblue-text);
+    border-radius: 25px;
+}
+
+.right div {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.right.element_slide_out div {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.right .intro {
+    flex: 45;
+    font-size: 25px;
+    padding: 0 3% 0 5%;
+    align-items: end;
+}
+
+.right .prompt_to_login {
+    flex: 15;
+    font-size: 16px;
+    align-items: center;
+}
+
+.right .loginBox {
+    flex: 40;
+    position: relative;
+    align-items: start;
+}
+/*left*/
+.left {
+    flex: 55;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    background-color: var(--light-background);
+    opacity: 1;
+    transition: opacity 0.8s ease-in-out;
+    }
+
+.left.fade_out div {
+  opacity: 0;
+}
+/*register frame*/
+.left .register_frame {
+    position: absolute;
+    width: 80%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--light-background);
+    box-shadow:
+        inset 2px 0px 2px rgba(0, 0, 0, 0.09),
+        inset 0px 5px 15px rgba(0, 0, 0, 0.3),
+        inset -2px 0px 2px rgba(0, 0, 0, 0.09),
+        inset 0px 5px 15px rgba(248, 246, 246, 0.9);
+}
+.register_frame div {
+    display: flex;
+    opacity: 1;
+    transition: opacity 3s ease-in-out;
+}
+
+.register_frame.fade_out div {
+    opacity: 0;
+}
+
+.register_frame .boxTitle {
+    flex: 30;
+    font-size: 20px;
+    color: var(--blue-background);
+    align-items: center;
+}
+
+.register_frame .boxUsername,
+.register_frame .boxEmail,
+.register_frame .boxPassword {
+    flex: 15;
+    width: 80%;
+    align-items: center;
+}
+.register_frame .boxConfirm {
+
+    flex: 10;
+    align-items: start;
+}
+
+.register_frame .socialLoginBox {
+    flex: 10;
+    font-size: smaller;
+    color: #888888;
+    align-items: center;
+}
+
+.register_frame .socialIcon {
+    flex: 10;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 80%;
+    padding: 5% 0;
+}
+
+input {
+    display: block;
+    width: 100%;
+    height: 50px;
+    padding-left: 5%;
+    font-size: 20px;
+    font-style: italic;
+    border: 2px solid var(--blue-background);
+    border-radius: 10px;
+    outline: none;
+}
+
+input::placeholder {
+    color: var(--blue-background);
+}
+
+input:focus {
+    border: 4px solid var(--blue-background);
+    box-shadow: inset 5px 5px 5px rgba(2, 8, 17, 0.12),
+                5px 5px 10px #888888;
+    transition: all 0.3s ease-in;
+}
+button {
+    width: 50%;
+    height: 40px;
+    font-size: 15px;
+    color: var(--light-background);     
+    background-color: var(--blue-background); 
+    border: 2px solid white;
+    border-radius: 10px;
+    position: absolute;
+    align-items: center;
+}
+button:hover {
+    width: 55%;
+    height: 42px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--blue-background);
+    background-color: var(--light-background);
+    border: 1px solid var(--blue-background);
+    border-radius: 12px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease-out;
+}
+#btn_register {
+    width: 80%;
+    height: 40px;
+    font-size: 15px;
+    color: var(--light-background);
+    background-color: var(--blue-background);
+    border: 2px solid white;
+    border-radius: 10px;
+    align-self: center; 
+    margin-top: 10px; 
+}
+
+#btn_register:hover {
+    width: 85%; 
+    height: 42px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--blue-background);
+    background-color: var(--light-background);
+    border: 1px solid var(--blue-background);
+    border-radius: 12px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease-out;
+}
+.fa-brands {
+    font-size: 30px;
+    color: var(--blue-background);
+    flex-shrink: 0;
+    transition: transform 0.25s ease, color 0.2s ease;
+}
+
+.fa-brands:hover {
+    transform: scale(1.3);
+}
