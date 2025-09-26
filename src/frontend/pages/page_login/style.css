@@ -105,6 +105,7 @@ Container doesnot contain background*/
     background-color: var(--blue-background);
     color:var(--inblue-text);
     border-radius:25px ;
+    overflow:hidden;
 }
 
 
@@ -119,6 +120,7 @@ Container doesnot contain background*/
     transform:translateX(-100%);
     opacity:0;
 }
+
 .right {
     flex:55;
     background-color:var(--light-background);  
