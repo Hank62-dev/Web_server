@@ -89,7 +89,7 @@ body::before {
 
 .left .register_frame {
     opacity: 0;
-    transition: opacity 3s ease;
+    transition: opacity 1.1s ease;
     position: absolute;
     width: 80%;
     height: 90%;
@@ -157,7 +157,7 @@ body::before {
     height: 100%;
     width: 100%;
     flex-direction: column;
-    transition: opacity 3s ease;
+    transition: opacity 1.1s ease;
     opacity: 0;
 }
 
