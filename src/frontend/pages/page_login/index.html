@@ -62,6 +62,7 @@
             </div>
 
             <script>
+    
                 //step1: 
                 document.getElementById("register").addEventListener("click",
                 function() {
@@ -88,7 +89,9 @@
                     
                     }, 3000);
 
-                    
+                    setTimeout(() => {
+                        window.location.href = "../page_registration/index.html"; // sang file khác trong cùng thư mục
+                    }, 4500);
                 });
                 //converse animation -> put them in order: step 3, step 2, step 1. 
                 //and change TimeOut
