@@ -38,45 +38,56 @@
 
         <!-- Cột phải -->
         <div class="col right">
-            <div class="right intro">
-                <h1>Welcome Back!</h1>
-            </div>
-            <div class="right prompt_to_login">
-                <p>Already have an account?</p>
-            </div>
-            <div class="right loginBox">
-                <div class="loginBox login_button">
-                    <button id="login">Login</button>
+            <div class="right_frame">
+                <div class="right intro">
+                    <h1>Welcome Back!</h1>
+                </div>
+                <div class="right prompt_to_login">
+                    <p>Already have an account?</p>
+                </div>
+                <div class="right loginBox">
+                    <div class="loginBox login_button">
+                        <button id="login">Login</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
-    // step1
-    document.getElementById("login").addEventListener("click", function() {
-        document.querySelector(".right").classList.add("element_slide_out");
-        document.querySelector(".left").classList.add("fade_out");
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.querySelector(".right_frame").classList.add("show");
+                document.querySelector(".register_frame").classList.add("show");
 
-        setTimeout(function() {
-            document.querySelector(".container").classList.add("right_expand");
-        }, 1200);
+            }, 1000); // chờ 3 giây mới fade in
+        });
+        // step1
+        document.getElementById("login").addEventListener("click", function() {
+            document.querySelector(".right").classList.add("element_slide_out");
+            document.querySelector(".left").classList.add("fade_out");
 
-        // step2
-        setTimeout(function() {
-            document.querySelector(".container").classList.remove("right_expand");
-            document.querySelector(".container").classList.add("prepare_move_to_login");
-        }, 2800);
+            document.querySelector(".right_frame").classList.remove("show");
+            document.querySelector(".register_frame").classList.remove("show");
+            setTimeout(function() {
+                document.querySelector(".container").classList.add("right_expand");
+            }, 1200);
 
-        // step3
-        setTimeout(function() {
-            document.querySelector(".container").classList.remove("prepare_move_to_login");
-            document.querySelector(".container").classList.add("pink_slide_out");
-        }, 3000);
+            // step2
+            setTimeout(function() {
+                document.querySelector(".container").classList.remove("right_expand");
+                document.querySelector(".container").classList.add("prepare_move_to_login");
+            }, 2800);
 
-        setTimeout(() => {
-            window.location.href = "../page_login/index.html"; // sang file khác trong cùng thư mục
-        }, 4500);
-    });
-</script>
+            // step3
+            setTimeout(function() {
+                document.querySelector(".container").classList.remove("prepare_move_to_login");
+                document.querySelector(".container").classList.add("pink_slide_out");
+            }, 3000);
+
+            setTimeout(() => {
+                window.location.href = "../page_login/index.html"; // sang file khác trong cùng thư mục
+            }, 4500);
+        });
+    </script>
 </body>
 </html>

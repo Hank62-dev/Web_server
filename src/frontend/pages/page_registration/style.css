@@ -83,7 +83,13 @@ body::before {
     opacity: 0;
 }
 
+.show{
+    opacity: 1 !important;
+}
+
 .left .register_frame {
+    opacity: 0;
+    transition: opacity 3s ease;
     position: absolute;
     width: 80%;
     height: 90%;
@@ -146,6 +152,17 @@ body::before {
 }
 
 /* RIGHT side (intro, prompt, button) */
+.right .right_frame{
+    display:flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    transition: opacity 3s ease;
+    opacity: 0;
+}
+
+
+
 .right {
     flex: 45;
     border-width: 1px;
