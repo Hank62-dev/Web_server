@@ -52,14 +52,31 @@
         </div>
     </div>
     <script>
-        document.getElementById("login").addEventListener("click",
-        function() {
-            document.querySelector(".left").classList.add("element_slide_out");
-            document.querySelector(".right").classList.add("fade_out");
-            setTimeout(function() {
-                document.querySelector(".container").classList.add("left_expand");
-            }, 700);
-        });
-    </script>
+    // step1
+    document.getElementById("login").addEventListener("click", function() {
+        document.querySelector(".right").classList.add("element_slide_out");
+        document.querySelector(".left").classList.add("fade_out");
+
+        setTimeout(function() {
+            document.querySelector(".container").classList.add("right_expand");
+        }, 1200);
+
+        // step2
+        setTimeout(function() {
+            document.querySelector(".container").classList.remove("right_expand");
+            document.querySelector(".container").classList.add("prepare_move_to_login");
+        }, 2800);
+
+        // step3
+        setTimeout(function() {
+            document.querySelector(".container").classList.remove("prepare_move_to_login");
+            document.querySelector(".container").classList.add("pink_slide_out");
+        }, 3000);
+
+        setTimeout(() => {
+            window.location.href = "../page_login/index.html"; // sang file khác trong cùng thư mục
+        }, 4500);
+    });
+</script>
 </body>
 </html>

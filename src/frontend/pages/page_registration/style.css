@@ -28,6 +28,7 @@ html {
     justify-content: center;
     align-items: center;
 }
+
 /* Background blur */
 body::before {
     content: "";
@@ -53,57 +54,20 @@ body::before {
     display: flex;
     flex-direction: column;
 }
-.container.right_expand .left {
+
+/* Mirror expand */
+.container.right_expand .right {
     flex: 100;
     transition: flex 1.5s ease-in-out;
 }
 
-.container.right_expand .right {
+.container.right_expand .left {
     flex: 0;
-    transition: flex 1.5s ease-in-out;
     opacity: 0;
-    transition: opacity 0.95s ease-in-out;
-}
-/*right */
-.right {
-    flex: 45;
-    border-width: 1px;
-    background-color: var(--blue-background);
-    color: var(--inblue-text);
-    border-radius: 25px;
+    transition: flex 1.5s ease-in-out, opacity 0.95s ease-in-out;
 }
 
-.right div {
-    display: flex;
-    flex-direction: row;
-    background-color: transparent;
-    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-}
-
-.right.element_slide_out div {
-    transform: translateX(-100%);
-    opacity: 0;
-}
-
-.right .intro {
-    flex: 45;
-    font-size: 25px;
-    padding: 0 3% 0 5%;
-    align-items: end;
-}
-
-.right .prompt_to_login {
-    flex: 15;
-    font-size: 16px;
-    align-items: center;
-}
-
-.right .loginBox {
-    flex: 40;
-    position: relative;
-    align-items: start;
-}
-/*left*/
+/* LEFT side (registration form) */
 .left {
     flex: 55;
     position: relative;
@@ -113,12 +77,12 @@ body::before {
     background-color: var(--light-background);
     opacity: 1;
     transition: opacity 0.8s ease-in-out;
-    }
+}
 
 .left.fade_out div {
-  opacity: 0;
+    opacity: 0;
 }
-/*register frame*/
+
 .left .register_frame {
     position: absolute;
     width: 80%;
@@ -134,6 +98,7 @@ body::before {
         inset -2px 0px 2px rgba(0, 0, 0, 0.09),
         inset 0px 5px 15px rgba(248, 246, 246, 0.9);
 }
+
 .register_frame div {
     display: flex;
     opacity: 1;
@@ -158,8 +123,8 @@ body::before {
     width: 80%;
     align-items: center;
 }
-.register_frame .boxConfirm {
 
+.register_frame .boxConfirm {
     flex: 10;
     align-items: start;
 }
@@ -180,6 +145,48 @@ body::before {
     padding: 5% 0;
 }
 
+/* RIGHT side (intro, prompt, button) */
+.right {
+    flex: 45;
+    border-width: 1px;
+    background-color: var(--blue-background);
+    color: var(--inblue-text);
+    border-radius: 25px;
+    overflow:hidden;
+}
+
+.right div {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.right.element_slide_out div {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.right .intro {
+    flex: 45;
+    font-size: 25px;
+    padding: 0 3% 0 5%;
+    align-items: end;
+}
+
+.right .prompt_to_login {
+    flex: 15;
+    font-size: 16px;
+    align-items: center;
+}
+
+.right .loginBox {
+    flex: 40;
+    position: relative;
+    align-items: start;
+}
+
+/* input & button */
 input {
     display: block;
     width: 100%;
@@ -202,6 +209,7 @@ input:focus {
                 5px 5px 10px #888888;
     transition: all 0.3s ease-in;
 }
+
 button {
     width: 50%;
     height: 40px;
@@ -213,6 +221,7 @@ button {
     position: absolute;
     align-items: center;
 }
+
 button:hover {
     width: 55%;
     height: 42px;
@@ -225,6 +234,7 @@ button:hover {
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
     transition: all 0.2s ease-out;
 }
+
 #btn_register {
     width: 80%;
     height: 40px;
@@ -249,6 +259,7 @@ button:hover {
     box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.5);
     transition: all 0.2s ease-out;
 }
+
 .fa-brands {
     font-size: 30px;
     color: var(--blue-background);
@@ -258,4 +269,35 @@ button:hover {
 
 .fa-brands:hover {
     transform: scale(1.3);
+}
+
+
+.container.prepare_move_to_login {
+    background-color: var(--blue-background);
+}
+
+.container.prepare_move_to_login .left {
+    background-color: var(--blue-background);
+    flex: 100;
+}
+
+.container.prepare_move_to_login .right {
+    background-color: var(--blue-background);
+    flex: 0;
+}
+
+.container.pink_slide_out {
+    background-color: var(--light-background);
+}
+
+.container.pink_slide_out .right {
+    transition: flex 1s ease-in-out;
+    flex: 55;
+    background-color: var(--light-background);
+}
+
+.container.pink_slide_out .left {
+    transition: flex 1s ease-in-out;
+    flex: 45;
+    background-color: var(--blue-background);
 }
