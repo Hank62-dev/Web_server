@@ -91,6 +91,36 @@ Container doesnot contain background*/
    
 }
 
+.container.prepare_move_to_register{
+    background-color: var(--blue-background);
+
+}
+
+.container.prepare_move_to_register .right{
+    background-color: var(--blue-background);
+    flex:100;
+}
+
+.container.prepare_move_to_register .left{
+    background-color: var(--blue-background);
+    flex:0;
+}
+
+.container.pink_slide_out{
+    background-color: var(--light-background);
+}
+
+.container.pink_slide_out .left{
+    transition: flex 1s ease-in-out;
+    flex:55;
+    background-color: var(--light-background);
+}
+
+.container.pink_slide_out .right{
+    transition: flex 1s ease-in-out;
+    flex:45;
+    background-color: var(--blue-background);
+}
 
 .col{
     display:flex;
@@ -120,6 +150,7 @@ Container doesnot contain background*/
     transform:translateX(-100%);
     opacity:0;
 }
+
 
 .right {
     flex:55;
@@ -299,6 +330,5 @@ input:focus{
 
 .fa-brands:hover{
     transform:scale(1.3);
-    /*only change display fontsize, do not impact on other icons*/
-    
+    /*only change display fontsize, do not impact on other icons*/ 
 }
