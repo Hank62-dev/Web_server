@@ -62,6 +62,7 @@
             </div>
 
             <script>
+                //step1: 
                 document.getElementById("register").addEventListener("click",
                 function() {
                     document.querySelector(".left").classList.add("element_slide_out");
@@ -71,8 +72,27 @@
                         document.querySelector(".container").classList.add("left_expand");
                     }, 1200);
 
+                    //step2:
+                    setTimeout(function() {
+                   
+                    document.querySelector(".container").classList.remove("left_expand");
+                    document.querySelector(".container").classList.add("prepare_move_to_register");
+                    
+                    }, 2800);
+                    //step3:
+                    setTimeout(function() {
+                    document.querySelector(".container").classList.remove("prepare_move_to_register");
+                    document.querySelector(".container").classList.add("pink_slide_out");
+                    
+                
+                    
+                    }, 3000);
+
                     
                 });
+                //converse animation -> put them in order: step 3, step 2, step 1. 
+                //and change TimeOut
+                
             </script>
             <!--timeOut to avoid left_expand disabling fade_out and element_slide_out-->
         </div>
