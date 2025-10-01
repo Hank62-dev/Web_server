@@ -14,7 +14,7 @@ Dự án này là một **web server nhỏ** được xây dựng bằng **Node.
 * CORS
 * HTML, CSS, JavaScript (Frontend)
 
-```
+
 ## 📂 Project Structure
 
 - **WEB_SERVER/**
@@ -40,7 +40,7 @@ Dự án này là một **web server nhỏ** được xây dựng bằng **Node.
   - `package.json`
   - `README.md`
 
-```
+
 
 ## Cài đặt & Chạy
 
