@@ -14,29 +14,33 @@ Dự án này là một **web server nhỏ** được xây dựng bằng **Node.
 * CORS
 * HTML, CSS, JavaScript (Frontend)
 
-## 📂 Cấu trúc thư mục
 
-```
-Web_server:.
-├── package-lock.json
-├── package.json
-├── backend/
-│   ├── logs.js         # Xử lý lưu trữ và đọc log request/response
-│   ├── script.js       # Logic xử lý backend
-│   └── server.js       # File chính của backend (Express server)
-├── frontend/
-│   ├── assets/
-│   │   └── imageBackground.jpg  # Hình nền
-│   └── pages/
-│       ├── page_login/
-│       │   └── index.html       # Giao diện đăng nhập
-│       ├── page_logs_request_response/
-│       │   └── index.html       # Giao diện xem logs
-│       └── page_registration/
-│           └── index.html       # Giao diện đăng ký
-└── node_modules/
-    └── .package-lock.json
-```
+## 📂 Project Structure
+
+- **WEB_SERVER/**
+  - **src/**
+    - **assets/**
+      - `imageBackground.jpg`
+    - **backend/**
+      - `logs.js`
+      - `script.js`
+      - `server.js`
+    - **frontend/**
+      - **pages/**
+        - **page_login/**
+          - `index.html`
+          - `style.css`
+        - **page_logs_request_response/**
+          - `index.html`
+          - `style.css`
+        - **page_registration/**
+          - `index.html`
+          - `style.css`
+  - `package-lock.json`
+  - `package.json`
+  - `README.md`
+
+
 
 ## Cài đặt & Chạy
 
