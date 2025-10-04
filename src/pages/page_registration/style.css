@@ -34,7 +34,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background: url("../../../assets/imageBackground.jpg") center/cover no-repeat;
+    background: url("/src/Assets/imageBackground.jpg") center/cover no-repeat;
     filter: blur(8px);
     z-index: -1;
 }
@@ -117,7 +117,7 @@ body::before {
 
 .register_frame .boxTitle {
     flex: 30;
-    font-size: 120%;
+    font-size: 20px;
     color: var(--blue-background);
     align-items: center;
 }

@@ -15,13 +15,13 @@
                     <h1>Registration</h1>
                 </div>
                 <div class="boxUsername">
-                    <input placeholder="Username" type="text">
+                    <input id="username" placeholder="Username" type="text" required>
                 </div>
                 <div class="boxEmail">
-                    <input placeholder="Email" type="email">
+                    <input id="email" placeholder="Email" type="email" required>
                 </div>
                 <div class="boxPassword">
-                    <input placeholder="Password" type="password">
+                    <input id="password" placeholder="Password" type="password" required>
                 </div>
                 <div class="boxConfirm">
                     <button id="btn_register">Register</button>
@@ -53,15 +53,16 @@
             </div>
         </div>
     </div>
+
     <script>
         window.addEventListener("load", () => {
             setTimeout(() => {
                 document.querySelector(".right_frame").classList.add("show");
                 document.querySelector(".register_frame").classList.add("show");
-
-            }, 500); // chờ 3 giây mới fade in
+            }, 500); // chờ 0.5 giây mới fade in
         });
-        // step1
+
+        // Logic cho nút Login
         document.getElementById("login").addEventListener("click", function() {
             document.querySelector(".right").classList.add("element_slide_out");
             document.querySelector(".left").classList.add("fade_out");
@@ -72,21 +73,62 @@
                 document.querySelector(".container").classList.add("right_expand");
             }, 1200);
 
-            // step2
             setTimeout(function() {
                 document.querySelector(".container").classList.remove("right_expand");
                 document.querySelector(".container").classList.add("prepare_move_to_login");
             }, 2800);
 
-            // step3
             setTimeout(function() {
                 document.querySelector(".container").classList.remove("prepare_move_to_login");
                 document.querySelector(".container").classList.add("pink_slide_out");
             }, 3000);
 
             setTimeout(() => {
-                window.location.href = "../page_login/index.html"; // sang file khác trong cùng thư mục
+                window.location.href = "../page_login/index.html";
             }, 4500);
+        });
+
+        // Logic cho nút Register
+        document.getElementById("btn_register").addEventListener("click", async function(e) {
+            e.preventDefault(); // Ngăn form reload trang nếu có
+
+            // Lấy giá trị từ input
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Kiểm tra các trường có rỗng không
+            if (!username || !email || !password) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            // Gửi POST request
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const result = await response.json();
+                console.log('Response:', result);
+
+                if (response.ok) {
+                    alert(result.message); // Thông báo thành công
+                    // Tùy chọn: chuyển hướng sau khi đăng ký thành công
+                    setTimeout(() => {
+                        window.location.href = "../page_login/index.html";
+                    }, 1000);
+                } else {
+                    alert(result.message || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during registration');
+            }
         });
     </script>
 </body>

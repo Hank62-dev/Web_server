@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="col left">
+            <div class="left_frame">
+                <div class="left intro">
+                    <h1>Hello, Welcome!</h1>
+                </div>
+                <div class="left prompt_to_register">
+                    <p>Don't have an account?</p>
+                </div>
+                <div class="left registerBox">
+                    <div class="registerBox register_button">
+                        <button id="register">Register</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col right">
+            <div class="right login_frame">
+                <div class="boxTitle">
+                    <h1>Login</h1>
+                </div>
+                <div class="boxUsername">
+                    <input id="username" placeholder="Username" type="text" required>
+                </div>
+                <div class="boxPassword">
+                    <input id="password" placeholder="Password" type="password" required>
+                </div>
+                <div class="boxForgotpw">
+                    <p>Forgot Password?</p>
+                </div>
+                <div class="boxConfirm">
+                    <button id="btn_login">Login</button>
+                </div>
+                <div class="socialLoginBox">or login with social platforms</div>
+                <div class="socialIcon">
+                    <i class="fa-brands fa-google"></i>
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-github"></i>
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.querySelector(".left_frame").classList.add("show");
+                document.querySelector(".login_frame").classList.add("show");
+            }, 500); // chờ 0.5 giây mới fade in
+        });
+
+        // Logic cho nút Register
+        document.getElementById("register").addEventListener("click", function() {
+            document.querySelector(".left").classList.add("element_slide_out");
+            document.querySelector(".right").classList.add("fade_out");
+
+            document.querySelector(".left_frame").classList.remove("show");
+            document.querySelector(".login_frame").classList.remove("show");
+            setTimeout(function() {
+                document.querySelector(".container").classList.add("left_expand");
+            }, 1200);
+
+            setTimeout(function() {
+                document.querySelector(".container").classList.remove("left_expand");
+                document.querySelector(".container").classList.add("prepare_move_to_register");
+            }, 2800);
+
+            setTimeout(function() {
+                document.querySelector(".container").classList.remove("prepare_move_to_register");
+                document.querySelector(".container").classList.add("pink_slide_out");
+            }, 3000);
+
+            setTimeout(() => {
+                window.location.href = "../page_registration/index.html";
+            }, 4500);
+        });
+
+        // Logic cho nút Login
+        document.getElementById("btn_login").addEventListener("click", async function(e) {
+            e.preventDefault(); // Ngăn hành vi mặc định nếu có
+
+            // Lấy giá trị từ input
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Kiểm tra các trường có rỗng không
+            if (!username || !password) {
+                alert("Please fill in both username and password");
+                return;
+            }
+
+            // Gửi POST request
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+                console.log('Response:', result);
+
+                if (response.ok) {
+                    alert(result.message); // Thông báo thành công
+                    // Tùy chọn: chuyển hướng sau khi đăng nhập thành công
+                    setTimeout(() => {
+                        window.location.href = "/"; // Hoặc trang khác sau login
+                    }, 1000);
+                } else {
+                    alert(result.message || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during login');
+            }
+        });
+    </script>
+</body>
+</html>

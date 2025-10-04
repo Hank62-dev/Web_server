@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request&Response</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>STATUS</h1>
+        <div class="boxMain">
+            <div class="boxLeft_request">
+                <div class="titleReq">REQUEST</div>
+                <div class="boxInforOfReq">
+                    <textarea class="inputForm request-0" placeholder="Method"></textarea>
+                    <textarea class="inputForm request-1" placeholder="Path"></textarea>
+                    <textarea class="inputForm request-2" placeholder="Headers"></textarea>
+                    <textarea class="inputForm request-3" placeholder="Body"></textarea>
+                </div>
+            </div>
+            <div class="boxRight_response">
+                <div class="titleRes">RESPONSE</div>
+                <div class="boxInforOfRes">
+                    <textarea class="inputForm response-0" placeholder="Status"></textarea>
+                    <textarea class="inputForm response-1" placeholder="Body"></textarea>
+                    <textarea class="inputForm response-2" placeholder="Timestamp"></textarea>
+                    <textarea class="inputForm response-3" placeholder="N/A"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hàm để lấy và hiển thị log
+        async function fetchAndDisplayLogs() {
+            try {
+                const response = await fetch('/logs', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch logs');
+
+                const logs = await response.json();
+                if (!logs || logs.length === 0) {
+                    alert('No logs available');
+                    return;
+                }
+
+                // Lấy log gần nhất (giả sử mảng logs sắp xếp theo thời gian)
+                const latestLog = logs[logs.length - 1];
+
+                // Xử lý log REQUEST
+                if (latestLog.type === 'REQUEST') {
+                    document.querySelector('.request-0').value = latestLog.method || '';
+                    document.querySelector('.request-1').value = latestLog.path || '';
+                    document.querySelector('.request-2').value = JSON.stringify(latestLog.headers) || '';
+                    document.querySelector('.request-3').value = JSON.stringify(latestLog.body) || '';
+                }
+
+                // Xử lý log RESPONSE (tìm response tương ứng gần nhất)
+                const latestResponse = logs
+                    .filter(log => log.type === 'RESPONSE')
+                    .pop();
+                if (latestResponse) {
+                    document.querySelector('.response-0').value = latestResponse.statusCode || '';
+                    document.querySelector('.response-1').value = JSON.stringify(latestResponse.body) || '';
+                    document.querySelector('.response-2').value = latestResponse.timestamp || '';
+                    document.querySelector('.response-3').value = ''; // Không sử dụng
+                }
+            } catch (error) {
+                console.error('Error fetching logs:', error);
+                alert('Error loading logs');
+            }
+        }
+
+        // Gọi hàm khi trang tải
+        window.addEventListener('load', fetchAndDisplayLogs);
+
+        // Tùy chọn: Cập nhật log theo thời gian thực (mỗi 5 giây)
+        // setInterval(fetchAndDisplayLogs, 5000);
+    </script>
+</body>
+</html>
