@@ -19,7 +19,6 @@ out/
 
 # Logs
 src/Logs/*
-!src/Logs
 *.log
 
 # Editor/OS specific files

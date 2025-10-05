@@ -1,13 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'node:path';
+import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { loggingMiddleware, getLogs } from './logs.js';
 import { readAllLogsFromFiles } from './getData.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+const logsDir = path.join(__dirname, '..', 'Logs');
+  if(!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir)
+  }
+  
 const app = express();
 app.use(cors());
 app.use(express.json());
