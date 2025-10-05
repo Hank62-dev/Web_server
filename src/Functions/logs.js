@@ -10,6 +10,9 @@ let isSaving = false; // Flag để khóa quá trình ghi
 
 async function ensureLogsDir() {
   const logsDir = path.join(__dirname, '..', 'Logs');
+  if(!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir)
+  }
   try {
     await fs.mkdir(logsDir, { recursive: true });
     console.log('Logs directory ensured at:', logsDir); // Debug thư mục
