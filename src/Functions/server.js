@@ -5,14 +5,43 @@ import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { loggingMiddleware, getLogs } from './logs.js';
 import { readAllLogsFromFiles } from './getData.js';
+const mongoose = require('mongoose');
+
+/*
+ * Note Cho Anh Huy 
+ * 1. Tự Tạo MongoDB Account Rồi Tạo File ".env" Rồi Ném Vô File Đó Giùm Cái key MONGOOSE_URI Cái Địa Chỉ URI Mà Ông Đã Tạo Database
+ * Cái URI đó có hướng dẫn rồi
+ * Đồng Thời, File Này Cũng Sẽ Dùng Để Cập Nhật Luôn Cái Database Ông Đã Đăng Kí
+ * Module: mongoose@6.0.2
+ * Command: npm i mongoose@6.0.2
+ * | .env
+ * | MONGOOSE_URI=<Ném Cái URI Vô Đó>
+ * 2. Đọc Luôn Cái src/Database/Users.js Rồi Dùng Nó Mà Đối Chiếu Thêm Cho Cái api/register, api/login Nhá
+ * Các Method Thì Hỏi AI, Hoặc Khi Nào Tui Khoẻ Lại Rồi Tui Tự Thao Tác
+ * -Nekomata Rin.
+ */
+const mongoURL = process.env.MONGOOSE_URI;
+
+if (!mongoURL) console.log("No URI Provided, Could Not Connect To Database");
+else {
+  mongoose.connect(mongoURL || '', {
+    keepAlive: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+  
+  if(mongoose.connect) console.log("Database Connected Successfully!")
+}
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const logsDir = path.join(__dirname, '..', 'Logs');
-  if(!fs.existsSync(logsDir)) {
-    fs.mkdirSync(logsDir)
-  }
-  
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir)
+}
+
 const app = express();
 app.use(cors());
 app.use(express.json());

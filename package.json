@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Hank62-dev/Web_server#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mongoose": "^6.0.2"
   }
 }
