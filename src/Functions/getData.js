@@ -18,8 +18,8 @@ export async function readAllLogsFromFiles() {
   const files = await fs.readdir(logsDir);
   // Lọc file theo pattern YYYY-MM-DD-hh-mm-ss-ACTION.ndjson
   const ndjsonFiles = files.filter(f => 
-    f.endsWith('.ndjson') && 
-    /^(\d{4}-\d{2}-\d{2})-(\d{2}-\d{2}-\d{2})-[A-Z_]+(\.ndjson)$/.test(f)
+    f.endsWith('.json') && 
+    /^(\d{4}-\d{2}-\d{2})-(\d{2}-\d{2}-\d{2})-[A-Z_]+(\.json)$/.test(f)
   );
 
   const all = [];

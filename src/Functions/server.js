@@ -46,6 +46,7 @@ app.use(express.static(pagesDir, {
   extensions: ['html', 'css'],
 }));
 
+
 // Attach logging middleware
 app.use(loggingMiddleware);
 
@@ -129,8 +130,47 @@ app.post('/login', async (req, res) => {
 });
 
 // GET /logs
-app.get('/logs', (req, res) => {
-  res.json(getLogs());
+// app.get('/logs', (req, res) => {
+//   res.json(getLogs());
+// });
+
+// GET /logs - TRẢ VỀ LOGS TỪ FILE
+app.get('/logs', async (req, res) => {
+  try {
+    // Lấy logs từ memory (trong runtime hiện tại)
+    const memoryLogs = getLogs();
+    
+    // Lấy logs từ file (tất cả logs đã lưu)
+    const fileLogs = await readAllLogsFromFiles();
+    
+    // Kết hợp cả 2 (ưu tiên file logs vì đầy đủ hơn)
+    const allLogs = [...fileLogs, ...memoryLogs];
+    
+    // Loại bỏ duplicate dựa trên timestamp
+    const uniqueLogs = [];
+    const seen = new Set();
+    
+    for (const log of allLogs) {
+      const key = log.request?.timestamp || log.timestamp || Math.random();
+      if (!seen.has(key)) {
+        seen.add(key);
+        uniqueLogs.push(log);
+      }
+    }
+    
+    // Sắp xếp lại theo thời gian
+    uniqueLogs.sort((a, b) => {
+      const timeA = a.request?.timestamp || a.timestamp || 0;
+      const timeB = b.request?.timestamp || b.timestamp || 0;
+      return new Date(timeA) - new Date(timeB);
+    });
+    
+    console.log(`Returning ${uniqueLogs.length} logs (${fileLogs.length} from files, ${memoryLogs.length} from memory)`);
+    res.json(uniqueLogs);
+  } catch (error) {
+    console.error('Error getting logs:', error);
+    res.status(500).json({ message: 'Error retrieving logs' });
+  }
 });
 
 // Serve specific pages
@@ -149,10 +189,25 @@ app.get('/register', (req, res) => {
 // Start server
 const PORT = process.env.PORT || 3000;
 
+// async function start() {
+//   try {
+//     await readAllLogsFromFiles();
+//     console.log('Logs loaded from files');
+//   } catch (err) {
+//     console.error('Failed to preload logs:', err.message);
+//   }
+
+//   app.listen(PORT, () => {
+//     console.log(`Server running at http://localhost:${PORT}`);
+//     console.log(`Open http://localhost:${PORT}/page_login in browser`);
+//   });
+// }
 async function start() {
   try {
-    await readAllLogsFromFiles();
-    console.log('Logs loaded from files');
+    const loadedLogs = await readAllLogsFromFiles();
+    const logsArray = getLogs();
+    logsArray.push(...loadedLogs);
+    console.log(`Preloaded ${loadedLogs.length} logs from files`);
   } catch (err) {
     console.error('Failed to preload logs:', err.message);
   }
@@ -162,5 +217,4 @@ async function start() {
     console.log(`Open http://localhost:${PORT}/page_login in browser`);
   });
 }
-
 start();
