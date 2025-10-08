@@ -79,9 +79,17 @@
 
         // Gọi hàm khi trang tải
         window.addEventListener('load', fetchAndDisplayLogs);
-
+                document.querySelector('.boxInforOfReq .inputForm').value = logs
+        .filter(log => log.type === 'REQUEST')
+        .map(log => `[${log.timestamp}] ${log.action} ${log.method} ${log.path}\n${JSON.stringify(log.body, null, 2)}`)
+        .join('\n\n');
+        document.querySelector('.boxInforOfRes .inputForm').value = logs
+        .filter(log => log.type === 'RESPONSE')
+        .map(log => `[${log.timestamp}] ${log.action} ${log.method} ${log.statusCode}\n${JSON.stringify(log.body, null, 2)}`)
+        .join('\n\n');
         // Tùy chọn: Cập nhật log theo thời gian thực (mỗi 5 giây)
         // setInterval(fetchAndDisplayLogs, 5000);
     </script>
+    
 </body>
 </html>
