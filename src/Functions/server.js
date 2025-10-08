@@ -5,88 +5,126 @@ import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { loggingMiddleware, getLogs } from './logs.js';
 import { readAllLogsFromFiles } from './getData.js';
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
+import UserSchema from '../Database/Users.js'; // Import User model
 
-/*
- * Note Cho Anh Huy 
- * 1. Tự Tạo MongoDB Account Rồi Tạo File ".env" Rồi Ném Vô File Đó Giùm Cái key MONGOOSE_URI Cái Địa Chỉ URI Mà Ông Đã Tạo Database
- * Cái URI đó có hướng dẫn rồi
- * Đồng Thời, File Này Cũng Sẽ Dùng Để Cập Nhật Luôn Cái Database Ông Đã Đăng Kí
- * Module: mongoose@6.0.2
- * Command: npm i mongoose@6.0.2
- * | .env
- * | MONGOOSE_URI=<Ném Cái URI Vô Đó>
- * 2. Đọc Luôn Cái src/Database/Users.js Rồi Dùng Nó Mà Đối Chiếu Thêm Cho Cái api/register, api/login Nhá
- * Các Method Thì Hỏi AI, Hoặc Khi Nào Tui Khoẻ Lại Rồi Tui Tự Thao Tác
- * -Nekomata Rin.
- */
+dotenv.config({ path: path.resolve('D:/DEV/webServer/Web_server/src/Functions/.env') });
+console.log("MONGOOSE_URI:", process.env.MONGOOSE_URI);
+
 const mongoURL = process.env.MONGOOSE_URI;
 
-if (!mongoURL) console.log("No URI Provided, Could Not Connect To Database");
-else {
-  mongoose.connect(mongoURL || '', {
+if (!mongoURL) {
+  console.log("No URI Provided, Could Not Connect To Database");
+} else {
+  mongoose.connect(mongoURL, {
     keepAlive: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
+  }).then(() => {
+    console.log("Database Connected Successfully!");
+  }).catch((err) => {
+    console.error("Database Connection Failed:", err.message);
   });
-  
-  if(mongoose.connect) console.log("Database Connected Successfully!")
 }
-
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const logsDir = path.join(__dirname, '..', 'Logs');
 if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir)
+  fs.mkdirSync(logsDir);
 }
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the /pages directory and its subdirectories
+// Serve static files
 const pagesDir = path.join(__dirname, '..', 'pages');
 app.use(express.static(pagesDir, {
-  extensions: ['html', 'css'], // Explicitly allow serving .html and .css files
+  extensions: ['html', 'css'],
 }));
 
 // Attach logging middleware
 app.use(loggingMiddleware);
 
-// POST /register
-app.post('/register', (req, res) => {
-  const { username, email, password } = req.body || {};
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: 'Missing required fields' });
-  }
+// POST /register - Sử dụng MongoDB
+app.post('/register', async (req, res) => {
+  try {
+    const { username, email, password } = req.body || {};
+    
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
 
-  const exists = getLogs().find(
-    l => l.request && l.request.action === 'REGISTER' && l.request.body.username === username
-  );
-  if (exists) {
-    return res.status(400).json({ message: 'Username already exists' });
-  }
+    // Kiểm tra username đã tồn tại chưa
+    const existingUser = await UserSchema.findOne({ UserName: username });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Username already exists' });
+    }
 
-  return res.json({ message: 'User registered successfully' });
+    // Kiểm tra email đã tồn tại chưa
+    const existingEmail = await UserSchema.findOne({ Email: email });
+    if (existingEmail) {
+      return res.status(400).json({ message: 'Email already exists' });
+    }
+
+    // Mã hóa password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Tạo user mới
+    const newUser = new UserSchema({
+      UserName: username,
+      Email: email,
+      Password: hashedPassword
+    });
+
+    await newUser.save();
+
+    return res.json({ 
+      message: 'User registered successfully',
+      username: username 
+    });
+
+  } catch (error) {
+    console.error('Register error:', error);
+    return res.status(500).json({ message: 'Server error during registration' });
+  }
 });
 
-// POST /login
-app.post('/login', (req, res) => {
-  const { username, password } = req.body || {};
-  if (!username || !password) {
-    return res.status(400).json({ message: 'Missing required fields' });
-  }
+// POST /login - Sử dụng MongoDB
+app.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body || {};
 
-  const user = getLogs().find(
-    l => l.request && l.request.action === 'REGISTER' && l.request.body.username === username && l.request.body.password === password
-  );
+    if (!username || !password) {
+      return res.status(400).json({ message: 'Missing required fields' });
+    }
 
-  if (user) {
-    return res.json({ message: 'Login successful' });
-  } else {
-    return res.status(401).json({ message: 'Invalid username or password' });
+    // Tìm user trong database
+    const user = await UserSchema.findOne({ UserName: username });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+    // So sánh password đã mã hóa
+    const isPasswordValid = await bcrypt.compare(password, user.Password);
+
+    if (isPasswordValid) {
+      return res.json({ 
+        message: 'Login successful',
+        username: user.UserName,
+        email: user.Email
+      });
+    } else {
+      return res.status(401).json({ message: 'Invalid username or password' });
+    }
+
+  } catch (error) {
+    console.error('Login error:', error);
+    return res.status(500).json({ message: 'Server error during login' });
   }
 });
 
@@ -95,7 +133,7 @@ app.get('/logs', (req, res) => {
   res.json(getLogs());
 });
 
-// Serve specific pages by redirecting to their directories
+// Serve specific pages
 app.get('/', (req, res) => {
   res.redirect('/page_login');
 });
@@ -108,12 +146,13 @@ app.get('/register', (req, res) => {
   res.sendFile(path.join(pagesDir, 'page_registration', 'index.html'));
 });
 
-// --- Start server ---
+// Start server
 const PORT = process.env.PORT || 3000;
 
 async function start() {
   try {
-    await readAllLogsFromFiles(); // Preload logs from files
+    await readAllLogsFromFiles();
+    console.log('Logs loaded from files');
   } catch (err) {
     console.error('Failed to preload logs:', err.message);
   }

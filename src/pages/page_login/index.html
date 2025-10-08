@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <title>Login</title>
 </head>
@@ -116,7 +116,7 @@
                     alert(result.message); // Thông báo thành công
                     // Tùy chọn: chuyển hướng sau khi đăng nhập thành công
                     setTimeout(() => {
-                        window.location.href = "../page_registration/index.html"; // Hoặc trang khác sau login
+                        window.location.href = "https://daihoc.fpt.edu.vn/"; // Hoặc trang khác sau login
                     }, 1000);
                 } else {
                     alert(result.message || 'Login failed');

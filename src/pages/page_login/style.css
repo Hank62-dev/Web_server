@@ -21,6 +21,7 @@ html{
 body{
     font-size:1.6rem;
     margin-bottom:100vh;
+    
 }
 body,html{
     height:85vh;
@@ -29,10 +30,11 @@ body,html{
 }
 
 body::before {
+  display: block;
   content: "";
   position: fixed;      
   inset: 0;
-  background: url("/src/Assets/imageBackground.jpg") center/cover no-repeat;
+  background-image: url("/src/Assets/imageBackground.jpg") center/cover no-repeat;
   filter: blur(8px);   
   z-index: -1;          
 }

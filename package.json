@@ -1,10 +1,14 @@
 {
   "type": "module",
   "dependencies": {
-    "express": "^4.17.1",
-    "cors": "^2.8.5"
-  }
-,
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongodb": "^6.20.0",
+    "mongoose": "^6.0.2"
+  },
   "name": "web_server",
   "version": "1.0.0",
   "description": "",
@@ -22,10 +26,5 @@
   "bugs": {
     "url": "https://github.com/Hank62-dev/Web_server/issues"
   },
-  "homepage": "https://github.com/Hank62-dev/Web_server#readme",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "mongoose": "^6.0.2"
-  }
+  "homepage": "https://github.com/Hank62-dev/Web_server#readme"
 }
