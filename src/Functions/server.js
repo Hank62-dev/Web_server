@@ -10,7 +10,7 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import UserSchema from '../Database/Users.js'; // Import User model
 
-dotenv.config({ path: path.resolve('D:/DEV/webServer/Web_server/src/Functions/.env') });
+dotenv.config();
 console.log("MONGOOSE_URI:", process.env.MONGOOSE_URI);
 
 const mongoURL = process.env.MONGOOSE_URI;
