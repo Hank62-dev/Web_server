@@ -10,7 +10,7 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import UserSchema from '../Database/Users.js'; // Import User model
 
-dotenv.config({ path: path.resolve('D:/DEV/webServer/Web_server/src/Functions/.env') });
+dotenv.config({ path: path.resolve('D:/Personal/webServer/Web_server/src/Functions/.env') });
 console.log("MONGOOSE_URI:", process.env.MONGOOSE_URI);
 
 const mongoURL = process.env.MONGOOSE_URI;
@@ -88,9 +88,15 @@ app.post('/register', async (req, res) => {
       username: username 
     });
 
-  } catch (error) {
-    console.error('Register error:', error);
-    return res.status(500).json({ message: 'Server error during registration' });
+  } 
+    // catch (error) {
+    // console.error('Register error:', error);
+    // return res.status(500).json({ message: 'Server error during registration' });
+    catch (error) {
+  console.error('Register error (detailed):', error.message);
+  console.error(error.stack);
+  return res.status(500).json({ message: 'Server error during registration', error: error.message });
+
   }
 });
 
