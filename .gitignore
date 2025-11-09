@@ -34,3 +34,4 @@ coverage/
 
 # Other common ignored files
 tmp/
+.vercel

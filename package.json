@@ -14,6 +14,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "vercel dev",
     "start": "node ./src/Functions/server.js"
   },
   "repository": {
@@ -27,4 +28,5 @@
     "url": "https://github.com/Hank62-dev/Web_server/issues"
   },
   "homepage": "https://github.com/Hank62-dev/Web_server#readme"
+
 }
