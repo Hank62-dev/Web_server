@@ -9,7 +9,6 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import UserSchema from '../Database/Users.js'; // Import User model
-import path from 'path';
 import { fileURLToPath } from 'url';
 // dotenv.config({ path: path.resolve('D:/Personal/webServer/Web_server/src/Functions/.env') });
 dotenv.config();
