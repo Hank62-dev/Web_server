@@ -30,12 +30,12 @@ if (!mongoURL) {
   });
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const logsDir = path.join(__dirname, '..', 'Logs');
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir);
-}
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// const logsDir = path.join(__dirname, '..', 'Logs');
+// if (!fs.existsSync(logsDir)) {
+//   fs.mkdirSync(logsDir);
+// }
 
 const app = express();
 app.use(cors());
@@ -209,19 +209,20 @@ const PORT = process.env.PORT || 3000;
 //     console.log(`Open http://localhost:${PORT}/page_login in browser`);
 //   });
 // }
-async function start() {
-  try {
-    const loadedLogs = await readAllLogsFromFiles();
-    const logsArray = getLogs();
-    logsArray.push(...loadedLogs);
-    console.log(`Preloaded ${loadedLogs.length} logs from files`);
-  } catch (err) {
-    console.error('Failed to preload logs:', err.message);
-  }
+// async function start() {
+//   try {
+//     const loadedLogs = await readAllLogsFromFiles();
+//     const logsArray = getLogs();
+//     logsArray.push(...loadedLogs);
+//     console.log(`Preloaded ${loadedLogs.length} logs from files`);
+//   } catch (err) {
+//     console.error('Failed to preload logs:', err.message);
+//   }
 
-  app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-    console.log(`Open http://localhost:${PORT}/page_login in browser`);
-  });
-}
-start();
+//   app.listen(PORT, () => {
+//     console.log(`Server running at http://localhost:${PORT}`);
+//     console.log(`Open http://localhost:${PORT}/page_login in browser`);
+//   });
+// }
+// start();
+export default app;
